@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Test</title>
+</head>
+<body>
+  <h1>Test API Endpoints</h1>
+  <button onclick="getRecipes()">Get Recipes</button>
+  <button onclick="createRecipe()">Create Recipe</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function getRecipes() {
+      const response = await fetch('http://localhost:5000/api/recipes');
+      const data = await response.json();
+      document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function createRecipe() {
+      const response = await fetch('http://localhost:5000/api/recipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: 'Test Recipe',
+          ingredients: 'Test Ingredients',
+          instructions: 'Test Instructions',
+          image: 'test.jpg'
+        })
+      });
+      const data = await response.json();
+      document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
